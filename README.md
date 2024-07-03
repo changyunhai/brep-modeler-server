@@ -30,3 +30,6 @@ Brep Modeler workstation and python command line connector
 
 ## 操作演示
 
+<video controls >
+<source src="docs/Video_2024-07-03_162650.mp4" type="video/mp4">
+</video>
