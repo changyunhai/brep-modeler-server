@@ -82,7 +82,10 @@ def init(sio, manager: Manager):
         else:
             await sio.emit('on_error', f"can not find this body: {bodyId}")
 
-    @manager.help("set transform to body", ["transform body", 'example: ["translate", 2, 10,0,0] will move x=10 for body 2'])
+    @manager.help("set transform to body", ["transform body",
+                                            'example: ["translate", 2, 10,0,0] will move x=10 for body id=2',
+                                            '["rotate", bodyId, line_p0_x, line_p0_y, line_p0_z, line_dir_x, line_dir_y, line_dir_z,angle]',
+                                            '["element",bodyId, 16 times transformElementNumber], where transformElement is 1x16 numbers'])
     @sio.event
     async def bodyTransform(sid, args):
         logger.debug(f"bodyTransform, {sid},args={args}")

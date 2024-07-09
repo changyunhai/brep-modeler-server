@@ -43,9 +43,23 @@ class ModelerContext:
 
     def bodyTransform(self, operator: str, body: Body, param: list[float]) -> list[Body]:
         if operator == 'translate':
+            if len(param) != 3:
+                raise Exception(f"need translate parametr count = 3, but got {len(param)}")
             translate = Transform3d.translation(Vector3d(param[0], param[1], param[2]))
-            print("translate=", translate.elements)
+            print(f"body={body.handler()}, translate=", translate.elements)
             body.transform(translate)
+        elif operator == "rotate":
+            if len(param) != 7:
+                raise Exception(f"need rotate parametr count = 7, but got {len(param)}")
+            rotate = Transform3d.rotation(Line3d(Point3d(param[0], param[1], param[2]), Vector3d(param[3], param[4], param[5])), param[6])
+            print(f"body={body.handler()}, rotate=", rotate.elements)
+            body.transform(rotate)
+        elif operator == "element":
+            if len(param) != 16:
+                raise Exception(f"need element parametr count = 16, but got {len(param)}")
+            trans = Transform3d()
+            trans.elements = param
+            body.transform(trans)
         return [body]
 
     def toSceneJson(self) -> dict:
