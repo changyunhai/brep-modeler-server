@@ -26,12 +26,14 @@ class Body(Entity):
     @typing.overload
     def cylinder(arg0: Line3d, arg1: float, arg2: int) -> Body:
         """
-        create cylinder, args: axis, radius, approximate
+        create cylinder, args: axisLine, radius, approximate
         """
     @staticmethod
     @typing.overload
     def cylinder(arg0: float, arg1: float, arg2: float, arg3: float, arg4: float, arg5: float, arg6: float, arg7: int) -> Body:
-        ...
+        """
+        create Cylinder: start point xyz, end point xyz, radius, segments
+        """
     @staticmethod
     @typing.overload
     def sphere(arg0: Point3d, arg1: float, arg2: int) -> Body:
@@ -140,6 +142,11 @@ class Line3d:
     def __init__(self, arg0: Point3d, arg1: Vector3d) -> None:
         ...
 class ModelerAPI:
+    @staticmethod
+    def BodyFacePresspull(arg0: Body, arg1: int, arg2: Vector3d) -> Body:
+        """
+        face press pull, args: faceHandler, moveVector
+        """
     @staticmethod
     def ExtractBodyBrep(arg0: Body) -> str:
         ...

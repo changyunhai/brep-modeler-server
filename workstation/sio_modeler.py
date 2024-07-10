@@ -59,7 +59,6 @@ def init(sio, manager: Manager):
             logger.warning(str(err))
             await sio.emit("on_error", str(err))
 
-
     @manager.help("get body info", ["empty parameter will give out all body handlers",
                                     "the body full brep info will be given if specified body handler. only returns the first one if multiple handlers.",
                                     "example: [2]"])
@@ -96,8 +95,26 @@ def init(sio, manager: Manager):
                 return await sio.emit("on_error", 'no context')
             bodyHandlers = list(map(lambda body: body.handler(), context.bodies))
             body = context.bodies[bodyHandlers.index(body_id)]
-            bodyUpdates = context.bodyTransform(transform_type,body,transformInfo)
+            bodyUpdates = context.bodyTransform(transform_type, body, transformInfo)
             await sio.emit('on_bodyTransform', {"handler": list(map(lambda body: body.handler(), bodyUpdates))})
+        except Exception as err:
+            logger.warning(str(err))
+            await sio.emit("on_error", str(err))
+
+    @manager.help("face press pull", ["move face along vector",
+                                      'example: [<body_handler>, <face_handler> , dir_x,dir_y,dir_z]'])
+    @sio.event
+    async def bodyFacePresspull(sid, args):
+        logger.debug(f"bodyTransform, {sid},args={args}")
+        try:
+            documentid, body_id, face_id, *dir = args
+            context: ModelerContext = manager.contexts.get(documentid)
+            if not context:
+                return await sio.emit("on_error", 'no context')
+            bodyHandlers = list(map(lambda body: body.handler(), context.bodies))
+            body = context.bodies[bodyHandlers.index(body_id)]
+            bodyUpdates = context.bodyFacePresspull(body, face_id, dir)
+            await sio.emit('on_bodyFacePresspull', {"handler": list(map(lambda body: body.handler(), bodyUpdates))})
         except Exception as err:
             logger.warning(str(err))
             await sio.emit("on_error", str(err))

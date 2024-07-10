@@ -62,6 +62,12 @@ class ModelerContext:
             body.transform(trans)
         return [body]
 
+    def bodyFacePresspull(self, body: Body, faceHandler: int, dir: list[float]) -> list[Body]:
+        if len(dir) != 3:
+            raise Exception(f" dir should be 3, but got {len(dir)} !")
+        ModelerAPI.BodyFacePresspull(body, faceHandler, Vector3d(dir[0], dir[1], dir[2]))
+        return [body]
+
     def toSceneJson(self) -> dict:
         print("bodies=", list(map(lambda body: body.handler(), self.bodies)))
         children = []
