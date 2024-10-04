@@ -3,4 +3,7 @@
 fire==0.6.0
 numpy==2.0.0
 fastapi==0.103.0
-socketio==1.8.4
+python-socketio==5.9.0
+pydantic==2.3.0
+uvicorn==0.21.1
+loguru==0.7.0
