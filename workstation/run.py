@@ -1,5 +1,10 @@
 # 本文件仅用于DEBUG。
 
+# 8810端口 - socketIO
+# 8811端口 - 管理端口, 用于socket连接的监控和后台管理
+
+# 在实际部署中, 仅需要启动8810端口, 后台监控程序为可选, 不是必须
+
 # 本地开发请使用命令行：
 #   python -m uvicorn app_sio:app --port 8810 --reload
 #   python -m uvicorn app_http:app --port 8811 --reload

@@ -1,33 +1,44 @@
 # brep-modeler-server
 Brep Modeler workstation and python command line connector
 
-## 总体架构
+[English](README.md) | [中文](README.zh-CN.md)
+
+NOTE: This repository will not be maintained due of the connection problem to github. The latest source code and deployment are here:
+
+- Source: https://gitee.com/changyunhai001/brep-modeler-server
+- Deployment(in Tencent Cloud): http://122.51.170.168/modeler-client/index.html
+
+## software architect
 ![modeler structure](docs/structure.png)
 
-模块说明:
+module instruction:
 - BRep kernel
-  
-    C++的BREP建模库, 使用pybind将其编译为python 的module供本项目调用, 该项目为私有仓库, 有意者请联系本人
+
+    This module is a brep library in C++, which is built by PYBIND11 in Windowns and Ubuntu, called by current project. The kernel is a private project repository.
 - Service
   
-    为本项目代码, 将brep的数据存储在server当中, 通过socketio进行数据分发和提供命令api进行操作
+    Current project is the source code of this module, which manages the brep data in the python server, and distributes data and provides api for the client by SOCKETIO
 
 - Client
 
-    分为命令行客户端和web3D UI浏览器客户端, 命令行客户端在本项目client目录中, 浏览器客户端在 https://github.com/changyunhai/brep-modeler-web3d, 为React + threejs + socketio
+    Now we have two types of client: 
 
-    不同的客户端可以对同一个文档做相同的操作, 文档的数据保存在server当中, 这样可以实现modeler的协同工作和显示.
+    - command line python client. Source code is in client/ 
 
-## 使用说明
+    - Typescript + React + threejs + socketio project with web3d UI . Source code is in [this repository]( https://github.com/changyunhai/brep-modeler-web3d )
+    
+    Note that the same document can be operated by different client, all the data stores in python server. In this case, we could get the collaboration design function.
+
+## Usage instruction
 
 - OS:
   
-  在windows下使用python 311, 在linux/ubuntu 下使用python 312 来加载modeler的C++扩展
+  Now the modeler kernel is built with python 311 in windows, and Python 312 in linux/ubuntu.
 
-- 运行和调试
+- Run and debug:
 
-    参考workstation/run.py中的说明
+    reference the file : workstation/run.py
 
-## 操作演示
+## Demos
 
 [![Watch the video](docs/video-snapshot-0703.png)](docs/Video_2024-07-03_162650.mp4)
